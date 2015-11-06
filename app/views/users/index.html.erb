@@ -1,15 +1,113 @@
 <h1>Users#index</h1>
 <div style='width: 800px;'>
-        <div id="map" style='width: 800px; height: 400px;'></div>
+        <div id="map" style='width: 1600px; height: 400px;'></div>
+</div>
+
+<hr>
+
+<style>.by-zip{position: fixed; top: 0; right:0;}</style>
+
+<div class="by-zip">
+  <label>Find Service Shops by zipcode</label>
+  <input type="txt" name="name" value="" placeholder="enter zip"/>
+  <button type="submit" name="button">search</button>
 </div>
 
 <script type="text/javascript">
+$(document).on("ready",function(){
+  var currentMarers = []
 
-        handler = Gmaps.build('Google');
-        handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-        markers = handler.addMarkers(<%=raw @hash.to_json %>);
-        handler.bounds.extendWith(markers);
-        handler.fitMapToBounds();
+  handler = Gmaps.build('Google');
+
+  handler.buildMap(
+     {
+      provider: {
+        panControl: true,
+        zoom: 5
+      },
+
+      internal: {
+        id: 'map'
+      }
+    },
+
+    function(){
+      if(navigator.geolocation)
+      navigator.geolocation.getCurrentPosition(displayOnMap);
+      // search/lat,lng
+      function displayOnMap(position){
+        console.log(position)
+        var lt = position.coords.latitude
+        var ln = position.coords.longitude
+
+        var marker = handler.addMarker({
+           lat: lt,
+           lng: ln
         });
+
+        handler.map.centerOn(marker);
+
+        $.getJSON("api/service_providers?lat="+ lt +"&lng=" + ln).then(function(myApiData){
+          var markers = handler.addMarkers(myApiData.gmaps_data);
+          currentMarkers = markers
+          handler.bounds.extendWith(currentMarkers);
+          handler.fitMapToBounds();
+
+        })
+      };
+
+  });
+
+  $('.by-zip button').on("click", function(evt){
+    var $inputEl = $('.by-zip input')
+    console.log(evt.target)
+
+    var userZip = $inputEl.val()
+
+    $.getJSON("api/service_providers?post_code="+userZip).then(function(myApiData){
+
+      console.log(myApiData)
+      console.log(currentMarkers)
+
+      handler.buildMap(
+         {
+          provider: {
+            panControl: true,
+            zoom: 5
+          },
+
+          internal: {
+            id: 'map'
+          }
+        }, function(){
+          console.log('building map.....')
+          console.log(currentMarkers[0])
+
+          var geoLocationPt1 = myApiData.gmaps_data[0]
+
+          var marker1 = handler.addMarker(geoLocationPt1);
+          handler.map.centerOn(marker1);
+
+          currentMarkers = handler.addMarkers(myApiData.gmaps_data);
+          handler.bounds.extendWith(currentMarkers);
+          handler.fitMapToBounds();
+        })
+
+
+
+    })
+
+    })
+
+})
+
+  //1) get the geocoordinateposition (w/ navigator.geolocation.getCurrentPosition(fn()...) )
+  //2) once geocoords obtained, make ajax request with jquery PASSING in the geocoords as params
+  //     - In Rails
+  //         - setup route to receive ajax request --- route should have lat/long data in params
+  //         - build a controller#action that will handle the new route
+  //         - controller#action will use the `Yelp` class from the gem to query the yelp api
+  //         -
+  //3) handle promise with building the map.
 
 </script>

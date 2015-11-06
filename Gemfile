@@ -48,6 +48,9 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
+
+gem 'figaro'
+gem 'yelp', require: 'yelp'
 gem 'geocoder'
 gem 'gmaps4rails'
 gem 'faker'

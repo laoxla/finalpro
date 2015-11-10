@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
 
-  
+
 
   def index
-    @user = User.where("id = ?", @current_user.id)
+    @current_user = User.find_by id: session[:user_id]
       @result = request.location.city
 
       pp @result

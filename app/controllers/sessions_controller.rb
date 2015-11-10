@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
 
      def delete
        sign_out
-       redirect_to root_path, notice: "You are now signed out. Thank you come again"
+       redirect_to sign_in_path, notice: "You are now signed out. Thank you come again"
      end
 
 end

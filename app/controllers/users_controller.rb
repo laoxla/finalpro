@@ -10,6 +10,7 @@ before_action :authenticate_user!, except: [:new, :create]
   end
 
   def show
+      @user = User.where("id = ?", @current_user.id)
     # @users =
     #   params[:lat] && params[:lng]]
     #     user_coordinates = {

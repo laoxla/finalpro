@@ -6,8 +6,6 @@ class UsersController < ApplicationController
     @current_user = User.find_by id: session[:user_id]
       @result = request.location.city
 
-      pp @result
-      @response = Yelp.client.search('houston', { term: 'auto_repair', limit: 16})
 
   end
 

@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    @user = User.where("id = ?", @current_user.id)
       @result = request.location.city
 
       pp @result
@@ -11,15 +12,13 @@ class UsersController < ApplicationController
   end
 
   def show
-  end
-
-  def zipcode
-    		user_zip =  gets.chomp
-    		 result
-
-    		if (user_zip)
-    			result = Yelp.client.search( user_zip + { term: 'auto_repair', limit: 16}) + userZip;
-        end
+    # @users =
+    #   params[:lat] && params[:lng]]
+    #     user_coordinates = {
+    #     latitude: params[:lat],
+    #     longitude: params[:lng]
+    #   }
+      # @response.find_by params[:id]
   end
 
   def new
@@ -30,7 +29,7 @@ class UsersController < ApplicationController
      @user = User.new params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
      if @user.save
        sign_in @user
-       redirect_to root_path, notice: "Welcome #{@user.first_name}"
+       redirect_to root_path, notice: "Welcome to Towbuddy, #{@user.first_name}"
      else
        render :new
      end

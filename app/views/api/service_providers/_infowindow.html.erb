@@ -1,0 +1,5 @@
+<%=business.name%>
+<p> <%= business.location.display_address %> </P>
+<p> <%=link_to business.display_phone, "tel:#{business.display_phone}"%> </p>
+<%=image_tag business.image_url%>
+<p> ratings: <%= business.rating%></p>

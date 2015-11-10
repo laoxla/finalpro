@@ -2,7 +2,12 @@
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
 
-
+body{
+    background: url(http://i.imgur.com/CDTVEfG.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: 40% 5%;
+}
 
 /*General Styles*/
 *,*:before,*:after{
@@ -27,4 +32,12 @@ a.a-cover{
     top: 0;
     right: 0;
     z-index: 100;
+}
+
+.navbar{
+  margin: 0;
+}
+
+.by-zip{
+  padding-top: 13px;
 }

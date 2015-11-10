@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
 
-
+before_action :authenticate_user!, except: [:new, :create]
 
   def index
-    @current_user = User.find_by id: session[:user_id]
+    @user = User.where("id = ?", @current_user.id)
       @result = request.location.city
 
 

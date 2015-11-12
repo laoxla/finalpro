@@ -13,11 +13,8 @@ class Api::ServiceProvidersController < ApplicationController
     }
 
     if params[:post_code]
-      puts "*-post-code-params!?-*"*100
       search_term = params[:post_code]
-      puts search_term
       @yelp_response =  Yelp.client.search(search_term, search_params)
-      pp @yelp_response
     elsif params[:lat] && params[:lng]
       @user_coordinates = {
         latitude: params[:lat],

@@ -10,7 +10,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :email
       t.string :password_digest
       t.string :vechicle_type
-
+      t.string :phone_number
       t.timestamps null: false
     end
   end

@@ -3,21 +3,12 @@ class UsersController < ApplicationController
 before_action :authenticate_user!, except: [:new, :create]
 
   def index
-    @user = User.where("id = ?", @current_user.id)
-      @result = request.location.city
-
-
+      @user = User.where("id = ?", @current_user.id)
   end
 
   def show
       @user = User.where("id = ?", @current_user.id)
-    # @users =
-    #   params[:lat] && params[:lng]]
-    #     user_coordinates = {
-    #     latitude: params[:lat],
-    #     longitude: params[:lng]
-    #   }
-      # @response.find_by params[:id]
+
   end
 
   def new

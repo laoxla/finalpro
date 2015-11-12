@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
 
+  mount Payola::Engine => '/payola', as: :payola
   root 'users#index'
 
   get 'users/show' => 'users#show', as: :show
+
+  get 'towservices/show' => 'towservices/show', as: :tow_show
 
   get 'finalpros/index'
 
@@ -19,6 +22,8 @@ Rails.application.routes.draw do
   post "/users" => 'users#create', as: :users
 
   get 'api/service_providers' => 'api/service_providers#index'
+
+  get "confirmation/:sale_guid" => 'towservices#confirmation', as: :confirmation
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,0 +1,12 @@
+# Read about fixtures at
+# http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  price: 1
+  permalink: MyString
+  name: MyString
+
+two:
+  price: 1
+  permalink: MyString
+  name: MyString

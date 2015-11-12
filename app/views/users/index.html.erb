@@ -60,7 +60,7 @@ $(document).on("ready",function(){
                 width: 36,
                 height: 36
               },
-              infowindow: "you are here!"
+              infowindow: '<h3>' + "you are here!" + '</h3>'
         });
         handler.map.centerOn(marker);
         $.getJSON("api/service_providers?lat="+ lt +"&lng=" + ln).then(function(myApiData){

@@ -1,7 +1,7 @@
 Payola.configure do |config|
 
-  config.secret_key = ENV['stripe_api_key']
-  config.publishable_key = ENV['stripe_publishable_key']
+  config.secret_key = ENV["stripe_api_key"]
+  config.publishable_key = ENV["stripe_publishable_key"]
 
   # Example subscription:
 
